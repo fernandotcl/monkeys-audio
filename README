@@ -1,10 +1,79 @@
-MAC: short for Monkey's Audio Codec, a lossless audio codec (almost with the .ape extension).
+Introduction
+============
 
-This is the MAC Linux port. I have added the autoconf and automake stuff and 
-made some slight changes for the codes.
+This is a port of Monkey's Audio Codec[1] to Unix-like systems. It provides
+a library that can be used by other programs and a command line utility.
 
-Since 3.99 update 4 build 4, mac-port has support for big endian platforms,
-and has been tested in MAC OSX 10.4, Linux PowerPC and SunOS Sparc, 
-but need more tests in more OSes and more Platforms.
+Monkey's Audio Codec is a lossless compressor for audio files. Files in this
+format can typically be recognized by the ".ape" extension. Other popular
+lossless compression formats are Xiph.Org's FLAC[2] and Apple's ALAC[3].
 
-Since 3.99 update 4 build 5, mac-port has support for AMD64.
+[1]: http://www.monkeysaudio.com/
+[2]: http://flac.sourceforge.net/
+[3]: http://alac.macosforge.org/
+
+
+Usage
+=====
+
+To encode an audio file:
+
+$ mac input.wav output.ape -c1000
+
+To decode an audio file:
+
+$ mac input.ape output.wav -d
+
+See mac(1) for more information.
+
+
+Reporting bugs
+==============
+
+Please use the GitHub issue tracker to post bug reports. If the issue hasn't
+been reported yet and you have a patch, you might skip that step and send me
+the patch directly and I'll apply it as soon as possible.
+
+
+Contributing
+============
+
+Any help is appreciated, please feel free to contribute. I'll review your
+patches and commit them if they are in accordance with this project's goals,
+and you'll be credited for the changes (I may ask you to change a few things
+things before your patches are accepted, though).
+
+For the time being, send your patches to:
+
+Fernando Tarlá Cardoso Lemos <fernandotcl AT gmail.com>
+
+Please format your patches with "git format-patch" and then attach them to an
+e-mail instead of sending the patches inlined in the message. This makes it
+easier for me to apply them.
+
+Another option is to fork the project on GitHub and send me pull requests.
+
+If you want to implement a new feature, please ping me first so that we can
+discuss it and also so that we don't end up implementing the same thing twice.
+
+
+Authors
+=======
+
+Monkey's Audio Codec was created by:
+
+Matthew T. Ashland <email AT monkeysaudio.com>
+
+It was ported to Linux and further developed by:
+
+Frank Klemm
+SuperMMX <SuperMMX AT gmail.com>
+
+Other contributors can be found in the commit messages.
+
+
+Licensing
+=========
+
+Monkey's Audio Codec's licensing terms are ambigous, to say the least. See
+the LICENSE file for more information.
