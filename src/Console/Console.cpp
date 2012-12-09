@@ -27,7 +27,7 @@ Displays the proper usage for MAC.exe
 ***************************************************************************************/
 void DisplayProperUsage(FILE * pFile) 
 {
-	fprintf(pFile, "Proper Usage: [EXE] [Input File] [Output File] [Mode]\n\n");
+	fprintf(pFile, "Proper Usage: [Input File] [Output File] [Mode]\n\n");
 
 	fprintf(pFile, "Modes: \n");
 	fprintf(pFile, "    Compress (fast): '-c1000'\n");
@@ -40,9 +40,9 @@ void DisplayProperUsage(FILE * pFile)
 	fprintf(pFile, "    Convert: '-nXXXX'\n\n");
 
 	fprintf(pFile, "Examples:\n");
-	fprintf(pFile, "    Compress: mac.exe \"Metallica - One.wav\" \"Metallica - One.ape\" -c2000\n");
-	fprintf(pFile, "    Decompress: mac.exe \"Metallica - One.ape\" \"Metallica - One.wav\" -d\n");
-	fprintf(pFile, "    Verify: mac.exe \"Metallica - One.ape\" -v\n");
+	fprintf(pFile, "    Compress: mac \"Metallica - One.wav\" \"Metallica - One.ape\" -c2000\n");
+	fprintf(pFile, "    Decompress: mac \"Metallica - One.ape\" \"Metallica - One.wav\" -d\n");
+	fprintf(pFile, "    Verify: mac \"Metallica - One.ape\" -v\n");
 	fprintf(pFile, "    (note: int filenames must be put inside of quotations)\n");
 }
 
