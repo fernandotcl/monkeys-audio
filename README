@@ -75,5 +75,7 @@ Other contributors can be found in the commit messages.
 Licensing
 =========
 
-Monkey's Audio Codec's licensing terms are ambigous, to say the least. See
-the LICENSE file for more information.
+Monkey's Audio Codec's licensing terms are controversial[4], to say the last.
+The full license agreement terms are found in the LICENSE file.
+
+[4]: http://lists.debian.org/debian-legal/2007/09/msg00079.html
