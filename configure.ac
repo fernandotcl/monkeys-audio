@@ -4,14 +4,13 @@
 #AC_PREREQ(2.57)
 AC_INIT(mac, 3.99-u4-b5)
 AC_CONFIG_SRCDIR([src/Shared/GlobalFunctions.cpp])
-AC_PREFIX_DEFAULT("/usr")
 
 AM_INIT_AUTOMAKE
 AM_CONFIG_HEADER(src/Shared/config.h)
 AM_MAINTAINER_MODE
 
 # Checks for programs.
-CXXFLAGS="$CXXFLAGS -O3 -Wall -pedantic -Wno-long-long"
+CXXFLAGS="$CXXFLAGS -O3 -Wall -Werror -pedantic -Wno-long-long"
 AC_PROG_CXX
 AC_PROG_CC
 AC_PROG_LIBTOOL
