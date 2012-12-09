@@ -20,35 +20,50 @@ CWinFileIO::~CWinFileIO()
 
 int CWinFileIO::Open(const wchar_t * pName)
 {
-    Close();
+	Close();
 
-    #ifdef _UNICODE
-        CSmartPtr<wchar_t> spName((wchar_t *) pName, TRUE, FALSE);    
-    #else
-        CSmartPtr<char> spName(GetANSIFromUTF16(pName), TRUE);
-    #endif
+	#ifdef _UNICODE
+		CSmartPtr<wchar_t> spName((wchar_t *) pName, TRUE, FALSE);
+	#else
+		CSmartPtr<char> spName(GetANSIFromUTF16(pName), TRUE);
+	#endif
 
-    m_hFile = ::CreateFile(spName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    if (m_hFile == INVALID_HANDLE_VALUE) 
-    {
-        m_hFile = ::CreateFile(spName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-        if (m_hFile == INVALID_HANDLE_VALUE) 
-        {
-            return -1;
-        }
-        else 
-        {
-            m_bReadOnly = TRUE;
-        }
-    }
-    else
-    {
-        m_bReadOnly = FALSE;
-    }
-    
-    wcscpy(m_cFileName, pName);
+	if ( 0 == strcmp ((const char *)pName, "-") || 0 == strcmp ((const char *)pName, "/dev/stdin") )
+	{
+		m_hFile = GetStdHandle (STD_INPUT_HANDLE);
+		m_bReadOnly = TRUE;
+		// ReadOnly
+	}
+	else if ( 0 == strcmp ((const char *)pName, "/dev/stdout") )
+	{
+		m_hFile = GetStdHandle (STD_OUTPUT_HANDLE);
+		m_bReadOnly = FALSE;
+		// WriteOnly
+	}
+	else
+	{
+		m_hFile = ::CreateFile(spName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+		if (m_hFile == INVALID_HANDLE_VALUE)
+		{
+			m_hFile = ::CreateFile(spName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+			if (m_hFile == INVALID_HANDLE_VALUE)
+			{
+				return -1;
+			}
+			else
+			{
+				m_bReadOnly = TRUE;
+			}
+		}
+		else
+		{
+			m_bReadOnly = FALSE;
+		}
+	}
 
-    return 0;
+	wcscpy(m_cFileName, pName);
+
+	return 0;
 }
 
 int CWinFileIO::Close()
