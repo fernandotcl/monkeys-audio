@@ -5,6 +5,7 @@
 .deps
 .libs
 Makefile
+Sample1
 aclocal.m4
 autom4te.cache
 config.guess
@@ -18,5 +19,6 @@ install
 install-sh
 libtool
 ltmain.sh
+mac
 missing
 stamp-h1
