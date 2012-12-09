@@ -121,3 +121,5 @@ loopDot:
         mov     eax, [esp + 4]
 
         ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits
