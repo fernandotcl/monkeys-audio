@@ -1,0 +1,33 @@
+
+-------------------
+Requirement
+-------------------
+
+YASM - for compiling the asm source (Currently only needed in x86 and AMD64 platforms), 
+       if you don't have it, the corresponding C++ code will be used and ASM codes will not build 
+       even the assembly option is enabled.
+
+
+-------------------
+Compile
+-------------------
+$ ./configure
+$ make
+
+--enable-assembly to compile with ASM support (The default is yes)
+
+-------------------
+Install
+-------------------
+$ make install 
+(need to be root)
+
+
+then the lib will be installed to the default usr lib of your system (/usr/lib) 
+named libmac.so*, the console frontend (now it is statically linked) to /usr/bin named 
+mac, and some header files to /usr/include/mac.
+
+There is also a sample analyzing program, located in src/Examples/Analyzer/Sample1,
+which displays some information of the specified file. It is not installed.
+
+Enjoy It!
