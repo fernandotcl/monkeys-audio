@@ -26,11 +26,11 @@ if ARCH_X86_64
 EXTRA_SOURCES = $(SOURCES_X86_64)
 endif
 
-STRIP_FPIC = sh $(top_srcdir)/strip_fPIC.sh
+STRIP_YASM_ARGS = sh $(top_srcdir)/strip_yasm_args.sh
 SUFFIXES = .asm
 
 .asm.lo:
-	$(LIBTOOL) --mode=compile --tag=ASM $(STRIP_FPIC) $(YASM) $(YASM_FORMAT) $(YASM_ARCH) -o $@ $< 
+	$(LIBTOOL) --mode=compile --tag=ASM $(STRIP_YASM_ARGS) $(YASM) $(YASM_FORMAT) $(YASM_ARCH) -o $@ $< 
 
 endif
 

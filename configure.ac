@@ -88,6 +88,9 @@ case "$host_os" in
   *bsd*|linux*|beos|irix*|solaris*)
     YASM_FORMAT="-f elf"
     ;;
+  darwin*)
+    YASM_FORMAT="-f macho"
+    ;;
   [[cC]][[yY]][[gG]][[wW]][[iI]][[nN]]*|mingw32*|mks*)
     YASM_FORMAT="-f win32"
     ;;
