@@ -5,7 +5,7 @@
 AC_INIT(mac, 3.99-u4-b5)
 AC_CONFIG_SRCDIR([src/Shared/GlobalFunctions.cpp])
 
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([foreign])
 AM_CONFIG_HEADER(src/Shared/config.h)
 AM_MAINTAINER_MODE
 
