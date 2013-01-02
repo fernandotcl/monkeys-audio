@@ -1,4 +1,2 @@
 SUBDIRS = src
-
-EXTRA_DIST = \
-	strip_fPIC.sh
+EXTRA_DIST = ChangeLog INSTALL LICENSE README strip_yasm_args.sh
