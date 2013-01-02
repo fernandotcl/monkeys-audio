@@ -1,0 +1,50 @@
+.TH MAC 1 2013-01-02 "monkeys-audio" "monkeys-audio Manual"
+.SH NAME
+mac \- Command line utility to encode and decode files using Monkey's Audio Codec
+.SH SYNOPSIS
+.B mac \fIinput_file\fR \fIoutput_file\fR \fImode\fR
+.PP
+.B mac \fIinput_file\fR \fI\-v\fR
+.SH DESCRIPTION
+mac is a command line utility that can encode WAVE files using Monkey's Audio Codec. It can also decode files in Monkey's Audio Codec format back to the WAVE format.
+
+Except for the \fI\-v\fR mode (verify), you must supply both an input and an output file. You may use a dash (\-) as a filename to indicate that input should be read from standard input or that output should be written to standard output.
+.SH MODES
+.TP 10
+.B \-c\fIQUAL
+Encode the input WAVE file using compression quality level \fIQUAL\fR
+.TP
+.B \-d
+Decode the input file to the WAVE format
+.TP
+.B \-n\fIQUAL
+Recompress the encoded input file using compression quality level \fIQUAL\fR
+.TP
+.B \-v
+Verify the input file checking for data corruption
+.SH QUALITY LEVELS
+The compression quality levels can be any of: \fI1000\fR (fastest algorithm, generates bigger files), \fI2000\fR, \fI3000\fR, \fI4000\fR or \fI5000\fR (slowest algorithm, generates smaller files).
+.SH EXAMPLE
+Encoding an audio file:
+
+.nf
+$ mac input.wav output.ape \-c2000
+.fi
+
+Decoding an audio file:
+
+.nf
+$ mac input.ape output.wav \-d
+.fi
+
+Verifying an encoded file:
+
+.nf
+$ mac input.ape \-v
+.fi
+
+Recompressing an encoded file:
+
+.nf
+$ mac input.ape output.ape \-n2000
+.fi
