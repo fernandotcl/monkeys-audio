@@ -151,7 +151,9 @@ case "$ac_cv_sizeof_int_p" in
 	;;
 esac
 
-AC_OUTPUT([Makefile src/Makefile 
+AC_OUTPUT([Makefile
+			  man/Makefile
+			  src/Makefile
 			  src/Console/Makefile 
 			  src/Shared/Makefile 
 			  src/MACLib/Makefile 
