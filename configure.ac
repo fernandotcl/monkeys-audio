@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 #AC_PREREQ(2.57)
-AC_INIT(mac, 3.99-u4-b5)
+AC_INIT(mac, 3.99-u4-b6)
 AC_CONFIG_SRCDIR([src/Shared/GlobalFunctions.cpp])
 
 AM_INIT_AUTOMAKE([foreign])
