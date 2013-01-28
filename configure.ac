@@ -4,9 +4,9 @@
 #AC_PREREQ(2.57)
 AC_INIT(mac, 3.99-u4-b6)
 AC_CONFIG_SRCDIR([src/Shared/GlobalFunctions.cpp])
+AC_CONFIG_HEADERS([src/Shared/config.h])
 
 AM_INIT_AUTOMAKE([foreign])
-AM_CONFIG_HEADER(src/Shared/config.h)
 AM_MAINTAINER_MODE
 
 # Checks for programs.
