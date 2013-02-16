@@ -1,0 +1,27 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#cmakedefine HAVE_SYS_IOCTL_H
+#cmakedefine HAVE_SYS_TIME_H
+#cmakedefine HAVE_FCNTL_H
+#cmakedefine HAVE_FLOAT_H
+#cmakedefine HAVE_MEMORY_H
+#cmakedefine HAVE_STDARG_H
+#cmakedefine HAVE_STDLIB_H
+#cmakedefine HAVE_STRING_H
+#cmakedefine HAVE_UNISTD_H
+#cmakedefine STDC_HEADERS
+
+#cmakedefine HAVE_MEMCMP
+#cmakedefine HAVE_STAT
+#cmakedefine HAVE_WCSCASECMP
+
+#cmakedefine BUILD_CROSS_PLATFORM
+
+#cmakedefine ENABLE_ASSEMBLY
+#cmakedefine ARCH_X86
+#cmakedefine ARCH_X86_64
+
+#cmakedefine WORDS_BIGENDIAN
+
+#endif
