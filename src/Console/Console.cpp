@@ -63,8 +63,9 @@ void CALLBACK ProgressCallback(int nPercentageDone)
 	double dRemaining = dElapsed * ((1.0 / dProgress) - 1.0);							// seconds
 
 	// output the progress
-	fprintf(stderr, "Progress: %.1f%% (%.1f seconds remaining, %.1f seconds total)		  \r", 
+	printf("Progress: %.1f%% (%.1f seconds remaining, %.1f seconds total)		  \r",
 		dProgress * 100, dRemaining, dElapsed);
+	fflush(stdout);
 }
 
 /***************************************************************************************
@@ -162,33 +163,33 @@ int main(int argc, char * argv[])
 		if (nCompressionLevel == 4000) { strcpy(cCompressionLevel, "extra high"); }
 		if (nCompressionLevel == 5000) { strcpy(cCompressionLevel, "insane"); }
 
-		fprintf(stderr, "Compressing (%s)...\n", cCompressionLevel);
+		printf("Compressing (%s)...\n", cCompressionLevel);
 		nRetVal = CompressFileW(spInputFilename, spOutputFilename, nCompressionLevel, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}
 	else if (nMode == DECOMPRESS_MODE) 
 	{
-		fprintf(stderr, "Decompressing...\n");
+		printf("Decompressing...\n");
 		nRetVal = DecompressFileW(spInputFilename, spOutputFilename, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}	
 	else if (nMode == VERIFY_MODE) 
 	{
-		fprintf(stderr, "Verifying...\n");
+		printf("Verifying...\n");
 		nRetVal = VerifyFileW(spInputFilename, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}	
 	else if (nMode == CONVERT_MODE) 
 	{
-		fprintf(stderr, "Converting...\n");
+		printf("Converting...\n");
 		nRetVal = ConvertFileW(spInputFilename, spOutputFilename, nCompressionLevel, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}
 
 	if (nRetVal == ERROR_SUCCESS)
 	{
-		fprintf(stderr, "\nSuccess!\n");
+		printf("\nSuccess!\n");
 		return EXIT_SUCCESS;
 	}
 	else
 	{
-		fprintf(stderr, "\nError: %i\n", nRetVal);
+		printf("\nError: %i\n", nRetVal);
 		return EXIT_FAILURE;
 	}
 }
