@@ -9,6 +9,7 @@ Copyrighted (c) 2000 - 2003 Matthew T. Ashland.  All Rights Reserved.
 #include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "All.h"
 #include "GlobalFunctions.h"
@@ -24,6 +25,7 @@ Copyrighted (c) 2000 - 2003 Matthew T. Ashland.  All Rights Reserved.
 
 // global variables
 static TICK_COUNT_TYPE g_nInitialTickCount = 0;
+static int g_bOutputIsTerminal = 0;
 
 /***************************************************************************************
 Displays the proper usage for MAC.exe
@@ -53,6 +55,11 @@ Progress callback
 ***************************************************************************************/
 static void CALLBACK ProgressCallback(int nPercentageDone)
 {
+	if (!g_bOutputIsTerminal)
+	{
+		return;
+	}
+
 	// get the current tick count
 	TICK_COUNT_TYPE  nTickCount;
 	TICK_COUNT_READ(nTickCount);
@@ -152,6 +159,9 @@ int main(int argc, char * argv[])
 	// set the initial tick count
 	TICK_COUNT_READ(g_nInitialTickCount);
 
+	// check if the output is a terminal
+	g_bOutputIsTerminal = isatty(fileno(stdout));
+
 	// process
 	int nKillFlag = 0;
 	if (nMode == COMPRESS_MODE) 
@@ -164,32 +174,41 @@ int main(int argc, char * argv[])
 		if (nCompressionLevel == 5000) { strcpy(cCompressionLevel, "insane"); }
 
 		printf("Compressing (%s)...\n", cCompressionLevel);
+		fflush(stdout);
 		nRetVal = CompressFileW(spInputFilename, spOutputFilename, nCompressionLevel, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}
 	else if (nMode == DECOMPRESS_MODE) 
 	{
 		printf("Decompressing...\n");
+		fflush(stdout);
 		nRetVal = DecompressFileW(spInputFilename, spOutputFilename, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}	
 	else if (nMode == VERIFY_MODE) 
 	{
 		printf("Verifying...\n");
+		fflush(stdout);
 		nRetVal = VerifyFileW(spInputFilename, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}	
 	else if (nMode == CONVERT_MODE) 
 	{
 		printf("Converting...\n");
+		fflush(stdout);
 		nRetVal = ConvertFileW(spInputFilename, spOutputFilename, nCompressionLevel, &nPercentageDone, ProgressCallback, &nKillFlag);
+	}
+
+	if (g_bOutputIsTerminal)
+	{
+		printf("\n");
 	}
 
 	if (nRetVal == ERROR_SUCCESS)
 	{
-		printf("\nSuccess!\n");
+		printf("Success!\n");
 		return EXIT_SUCCESS;
 	}
 	else
 	{
-		printf("\nError: %i\n", nRetVal);
+		printf("Error: %i\n", nRetVal);
 		return EXIT_FAILURE;
 	}
 }
