@@ -6,8 +6,11 @@ more functionality like tagging, auto-verify, etc., that'd be excellent.
 
 Copyrighted (c) 2000 - 2003 Matthew T. Ashland.  All Rights Reserved.
 ***************************************************************************************/
-#include "All.h"
+#include <getopt.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+#include "All.h"
 #include "GlobalFunctions.h"
 #include "MACLib.h"
 #include "CharacterHelper.h"
@@ -50,7 +53,7 @@ Progress callback
 ***************************************************************************************/
 void CALLBACK ProgressCallback(int nPercentageDone)
 {
-    // get the current tick count
+	// get the current tick count
 	TICK_COUNT_TYPE  nTickCount;
 	TICK_COUNT_READ(nTickCount);
 
@@ -60,7 +63,7 @@ void CALLBACK ProgressCallback(int nPercentageDone)
 	double dRemaining = dElapsed * ((1.0 / dProgress) - 1.0);							// seconds
 
 	// output the progress
-	fprintf(stderr, "Progress: %.1f%% (%.1f seconds remaining, %.1f seconds total)          \r", 
+	fprintf(stderr, "Progress: %.1f%% (%.1f seconds remaining, %.1f seconds total)		  \r", 
 		dProgress * 100, dRemaining, dElapsed);
 }
 
@@ -75,78 +78,79 @@ int main(int argc, char * argv[])
 	int nMode = UNDEFINED_MODE;
 	int nCompressionLevel = COMPRESSION_LEVEL_NORMAL;
 	int nPercentageDone;
-	
-	// make sure there are at least four arguments (could be more for EAC compatibility)
-	if (argc < 3) 
-	{
-		DisplayProperUsage(stderr);
-		exit(-1);
+
+	// parse the command line arguments
+	int opt;
+	while ((opt = getopt_long(argc, argv, "c:dhvn:", NULL, NULL)) != -1) {
+		switch (opt) {
+			case 'c':
+				nMode = COMPRESS_MODE;
+				nCompressionLevel = atoi(optarg);
+				break;
+			case 'd':
+				nMode = DECOMPRESS_MODE;
+				break;
+			case 'h':
+				DisplayProperUsage(stdout);
+				return EXIT_SUCCESS;
+			case 'v':
+				nMode = VERIFY_MODE;
+				break;
+			case 'n':
+				nMode = CONVERT_MODE;
+				nCompressionLevel = atoi(optarg);
+				break;
+			default:
+				DisplayProperUsage(stderr);
+				return EXIT_FAILURE;
+		}
 	}
 
-	// store the input file
-	spInputFilename.Assign(GetUTF16FromANSI(argv[1]), TRUE);
-	
-	// store the output file
-	spOutputFilename.Assign(GetUTF16FromANSI(argv[2]), TRUE);
+	// error check the mode
+	if (nMode == UNDEFINED_MODE)
+	{
+		DisplayProperUsage(stderr);
+		return EXIT_FAILURE;
+	}
+
+	// make sure we have enough arguments
+	int nNumFilenames = nMode == VERIFY_MODE ? 1 : 2;
+	int nNumProvided = argc - optind;
+	if (nNumFilenames != nNumProvided)
+	{
+		DisplayProperUsage(stderr);
+		return EXIT_FAILURE;
+	}
+
+	// store the file names
+	spInputFilename.Assign(GetUTF16FromANSI(argv[optind]), TRUE);
+	if (nNumFilenames == 2)
+	{
+		spOutputFilename.Assign(GetUTF16FromANSI(argv[optind + 1]), TRUE);
+	}
 
 	// verify that the input file exists
 	if (!FileExists(spInputFilename))
 	{
-		fprintf(stderr, "Input File Not Found...\n\n");
-		exit(-1);
-	}
-
-	// if the output file equals '-v', then use this as the next argument
-	char cMode[256];
-	strcpy(cMode, argv[2]);
-
-	if (_strnicmp(cMode, "-v", 2) != 0)
-	{
-		// verify is the only mode that doesn't use at least the third argument
-		if (argc < 4) 
-		{
-			DisplayProperUsage(stderr);
-			exit(-1);
-		}
-
-		// check for and skip if necessary the -b XXXXXX arguments (3,4)
-		strcpy(cMode, argv[3]);
-	}
-
-	// get the mode
-	nMode = UNDEFINED_MODE;
-	if (_strnicmp(cMode, "-c", 2) == 0)
-		nMode = COMPRESS_MODE;
-	else if (_strnicmp(cMode, "-d", 2) == 0)
-		nMode = DECOMPRESS_MODE;
-	else if (_strnicmp(cMode, "-v", 2) == 0)
-		nMode = VERIFY_MODE;
-	else if (_strnicmp(cMode, "-n", 2) == 0)
-		nMode = CONVERT_MODE;
-
-	// error check the mode
-	if (nMode == UNDEFINED_MODE) 
-	{
-		DisplayProperUsage(stderr);
-		exit(-1);
+		fprintf(stderr, "The input filename does not seem to exist\n");
+		return EXIT_FAILURE;
 	}
 
 	// get and error check the compression level
 	if (nMode == COMPRESS_MODE || nMode == CONVERT_MODE) 
 	{
-		nCompressionLevel = atoi(&cMode[2]);
 		if (nCompressionLevel != 1000 && nCompressionLevel != 2000 && 
 			nCompressionLevel != 3000 && nCompressionLevel != 4000 &&
 			nCompressionLevel != 5000) 
 		{
 			DisplayProperUsage(stderr);
-			return -1;
+			return EXIT_FAILURE;
 		}
 	}
 
 	// set the initial tick count
 	TICK_COUNT_READ(g_nInitialTickCount);
-	
+
 	// process
 	int nKillFlag = 0;
 	if (nMode == COMPRESS_MODE) 
@@ -177,10 +181,14 @@ int main(int argc, char * argv[])
 		nRetVal = ConvertFileW(spInputFilename, spOutputFilename, nCompressionLevel, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}
 
-	if (nRetVal == ERROR_SUCCESS) 
-		fprintf(stderr, "\nSuccess...\n");
-	else 
+	if (nRetVal == ERROR_SUCCESS)
+	{
+		fprintf(stderr, "\nSuccess!\n");
+		return EXIT_SUCCESS;
+	}
+	else
+	{
 		fprintf(stderr, "\nError: %i\n", nRetVal);
-
-	return nRetVal;
+		return EXIT_FAILURE;
+	}
 }
