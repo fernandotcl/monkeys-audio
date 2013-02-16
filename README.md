@@ -55,8 +55,8 @@ Monkey's Audio Codec was created by [Matthew T. Ashland][matthew]. It was ported
 [supermmx]: mailto:SuperMMX@gmail.com
 [fernando]: mailto:fernandotcl@gmail.com
 
-## Licensing
+## License
 
-Monkey's Audio Codec's licensing terms are [controversial][license-trouble], to say the last. The full license agreement terms are found in the LICENSE file.
+Monkey's Audio Codec is available under an [unorthodox license][license-trouble]. See the LICENSE file for more information.
 
 [license-trouble]: http://lists.debian.org/debian-legal/2007/09/msg00079.html
