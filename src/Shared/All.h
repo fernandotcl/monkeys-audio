@@ -110,7 +110,6 @@ Global defines
 #define MAC_NAME                                        _T("Monkey's Audio 3.99")
 #define PLUGIN_NAME                                     "Monkey's Audio Player v3.99"
 #define MJ_PLUGIN_NAME                                  _T("APE Plugin (v3.99)")
-#define CONSOLE_NAME                                    "--- Monkey's Audio Console Front End (v 3.99) (c) Matthew T. Ashland ---\n"
 #define PLUGIN_ABOUT                                    _T("Monkey's Audio Player v3.99\nCopyrighted (c) 2000-2004 by Matthew T. Ashland")
 #define MAC_DLL_INTERFACE_VERSION_NUMBER                1000
 

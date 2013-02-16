@@ -27,7 +27,7 @@ Displays the proper usage for MAC.exe
 ***************************************************************************************/
 void DisplayProperUsage(FILE * pFile) 
 {
-	fprintf(pFile, "Proper Usage: [Input File] [Output File] [Mode]\n\n");
+	fprintf(pFile, "Usage: [Input File] [Output File] [Mode]\n\n");
 
 	fprintf(pFile, "Modes: \n");
 	fprintf(pFile, "    Compress (fast): '-c1000'\n");
@@ -43,7 +43,6 @@ void DisplayProperUsage(FILE * pFile)
 	fprintf(pFile, "    Compress: mac \"Metallica - One.wav\" \"Metallica - One.ape\" -c2000\n");
 	fprintf(pFile, "    Decompress: mac \"Metallica - One.ape\" \"Metallica - One.wav\" -d\n");
 	fprintf(pFile, "    Verify: mac \"Metallica - One.ape\" -v\n");
-	fprintf(pFile, "    (note: int filenames must be put inside of quotations)\n");
 }
 
 /***************************************************************************************
@@ -76,9 +75,6 @@ int main(int argc, char * argv[])
 	int nMode = UNDEFINED_MODE;
 	int nCompressionLevel = COMPRESSION_LEVEL_NORMAL;
 	int nPercentageDone;
-		
-	// output the header
-	fprintf(stderr, CONSOLE_NAME);
 	
 	// make sure there are at least four arguments (could be more for EAC compatibility)
 	if (argc < 3) 
