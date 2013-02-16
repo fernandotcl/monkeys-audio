@@ -23,12 +23,12 @@ Copyrighted (c) 2000 - 2003 Matthew T. Ashland.  All Rights Reserved.
 #define UNDEFINED_MODE		-1
 
 // global variables
-TICK_COUNT_TYPE g_nInitialTickCount = 0;
+static TICK_COUNT_TYPE g_nInitialTickCount = 0;
 
 /***************************************************************************************
 Displays the proper usage for MAC.exe
 ***************************************************************************************/
-void DisplayProperUsage(FILE * pFile) 
+static void DisplayProperUsage(FILE * pFile)
 {
 	fprintf(pFile, "Usage: [Input File] [Output File] [Mode]\n\n");
 
@@ -51,7 +51,7 @@ void DisplayProperUsage(FILE * pFile)
 /***************************************************************************************
 Progress callback
 ***************************************************************************************/
-void CALLBACK ProgressCallback(int nPercentageDone)
+static void CALLBACK ProgressCallback(int nPercentageDone)
 {
 	// get the current tick count
 	TICK_COUNT_TYPE  nTickCount;
