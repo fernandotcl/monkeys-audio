@@ -5,10 +5,12 @@ mac \- Command line utility to encode and decode files using Monkey's Audio Code
 .B mac \fIinput_file\fR \fIoutput_file\fR \fImode\fR
 .PP
 .B mac \fIinput_file\fR \fI\-v\fR
+.PP
+.B mac \fI\-h\fR
 .SH DESCRIPTION
 mac is a command line utility that can encode WAVE files using Monkey's Audio Codec. It can also decode files in Monkey's Audio Codec format back to the WAVE format.
 
-Except for the \fI\-v\fR mode (verify), you must supply both an input and an output file. You may use a dash (\-) as a filename to indicate that input should be read from standard input or that output should be written to standard output.
+Except for the \fI\-v\fR mode (verify) or when using the \fI\-h\fR option, you must supply both an input and an output file. You may use a dash (\-) as a filename to indicate that input should be read from standard input or that output should be written to standard output.
 .SH MODES
 .TP 10
 .B \-c\fIQUAL
@@ -16,6 +18,9 @@ Encode the input WAVE file using compression quality level \fIQUAL\fR
 .TP
 .B \-d
 Decode the input file to the WAVE format
+.TP
+.B \-h
+Display usage information and exit
 .TP
 .B \-n\fIQUAL
 Recompress the encoded input file using compression quality level \fIQUAL\fR
