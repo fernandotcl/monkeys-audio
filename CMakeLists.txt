@@ -192,7 +192,7 @@ include_directories(
     src/Shared
     src/MACLib)
 
-add_library(libmac SHARED
+add_library(libmac
     ${SHARED_SOURCES}
     ${SHARED_HEADERS}
     ${LIBMAC_SOURCES}
@@ -201,10 +201,7 @@ add_library(libmac SHARED
 target_link_libraries(libmac ${NANOSLEEP_LIBRARY})
 
 set_target_properties(libmac PROPERTIES
-    OUTPUT_NAME mac
-    VERSION 3.99.5
-    SOVERSION 3
-    LINK_FLAGS -export-dynamic)
+    OUTPUT_NAME mac)
 
 add_executable(mac ${MAC_SOURCES})
 target_link_libraries(mac libmac)
@@ -212,5 +209,4 @@ target_link_libraries(mac libmac)
 add_executable(Sample1 ${SAMPLE1_SOURCES})
 target_link_libraries(Sample1 libmac)
 
-install(TARGETS libmac DESTINATION lib)
 install(TARGETS mac DESTINATION bin)
