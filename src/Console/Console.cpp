@@ -25,7 +25,8 @@ Copyrighted (c) 2000 - 2003 Matthew T. Ashland.  All Rights Reserved.
 
 // global variables
 static TICK_COUNT_TYPE g_nInitialTickCount = 0;
-static int g_bOutputIsTerminal = 0;
+static int g_bStdoutIsTerminal = 0;
+static int g_bOutputIsStdout = 0;
 
 /***************************************************************************************
 Displays the proper usage for MAC.exe
@@ -55,7 +56,7 @@ Progress callback
 ***************************************************************************************/
 static void CALLBACK ProgressCallback(int nPercentageDone)
 {
-	if (!g_bOutputIsTerminal)
+	if (!g_bStdoutIsTerminal || g_bOutputIsStdout)
 	{
 		return;
 	}
@@ -144,6 +145,12 @@ int main(int argc, char * argv[])
 		return EXIT_FAILURE;
 	}
 
+	// check if we are outputting to stdout
+	if (nNumFilenames == 2 && !strcmp(argv[optind + 1], "-"))
+	{
+		g_bOutputIsStdout = 1;
+	}
+
 	// get and error check the compression level
 	if (nMode == COMPRESS_MODE || nMode == CONVERT_MODE) 
 	{
@@ -160,7 +167,7 @@ int main(int argc, char * argv[])
 	TICK_COUNT_READ(g_nInitialTickCount);
 
 	// check if the output is a terminal
-	g_bOutputIsTerminal = isatty(fileno(stdout));
+	g_bStdoutIsTerminal = isatty(fileno(stdout));
 
 	// process
 	int nKillFlag = 0;
@@ -173,42 +180,64 @@ int main(int argc, char * argv[])
 		if (nCompressionLevel == 4000) { strcpy(cCompressionLevel, "extra high"); }
 		if (nCompressionLevel == 5000) { strcpy(cCompressionLevel, "insane"); }
 
-		printf("Compressing (%s)...\n", cCompressionLevel);
-		fflush(stdout);
+		if (!g_bOutputIsStdout)
+		{
+			printf("Compressing (%s)...\n", cCompressionLevel);
+			fflush(stdout);
+		}
+
 		nRetVal = CompressFileW(spInputFilename, spOutputFilename, nCompressionLevel, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}
 	else if (nMode == DECOMPRESS_MODE) 
 	{
-		printf("Decompressing...\n");
-		fflush(stdout);
+		if (!g_bOutputIsStdout)
+		{
+			printf("Decompressing...\n");
+			fflush(stdout);
+		}
+
 		nRetVal = DecompressFileW(spInputFilename, spOutputFilename, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}	
 	else if (nMode == VERIFY_MODE) 
 	{
-		printf("Verifying...\n");
-		fflush(stdout);
+		if (!g_bOutputIsStdout)
+		{
+			printf("Verifying...\n");
+			fflush(stdout);
+		}
+
 		nRetVal = VerifyFileW(spInputFilename, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}	
 	else if (nMode == CONVERT_MODE) 
 	{
-		printf("Converting...\n");
-		fflush(stdout);
+		if (!g_bOutputIsStdout)
+		{
+			printf("Converting...\n");
+			fflush(stdout);
+		}
+
 		nRetVal = ConvertFileW(spInputFilename, spOutputFilename, nCompressionLevel, &nPercentageDone, ProgressCallback, &nKillFlag);
 	}
 
-	if (g_bOutputIsTerminal)
+	if (g_bStdoutIsTerminal && !g_bOutputIsStdout)
 	{
 		printf("\n");
 	}
 
 	if (nRetVal == ERROR_SUCCESS)
 	{
-		printf("Success!\n");
+		if (!g_bOutputIsStdout)
+		{
+			printf("Success!\n");
+		}
 		return EXIT_SUCCESS;
 	}
 	else
 	{
-		printf("Error: %i\n", nRetVal);
+		if (!g_bOutputIsStdout)
+		{
+			printf("Error: %i\n", nRetVal);
+		}
 		return EXIT_FAILURE;
 	}
 }
