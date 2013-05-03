@@ -21,6 +21,8 @@ WARNING:
 
 // includes
 #include <stdio.h>
+
+#define __STDC_FORMAT_MACROS // for PRIiPTR
 #include <inttypes.h>
 
 #include "All.h"
@@ -109,13 +111,11 @@ int main(int argc, char* argv[])
 	    }
 	    printf("\n\n");
 		// iterate through all the tag fields
-		BOOL bFirst = TRUE;
 		CAPETagField * pTagField;
 //		while (pAPETag->GetNextTagField(bFirst, &pTagField))
 		int index = 0;
 		while ((pTagField = pAPETag->GetTagField(index)) != NULL)
 		{
-			bFirst = FALSE;
 			index ++;
 			
 			// output the tag field properties (don't output huge fields like images, etc.)
