@@ -19,6 +19,8 @@ WARNING:
 	everything gets finalized.  Use them at your own risk.
 ***************************************************************************************/
 
+#define PRIiPTR "ld"
+
 // includes
 #include <stdio.h>
 #include <inttypes.h>
@@ -109,13 +111,13 @@ int main(int argc, char* argv[])
 	    }
 	    printf("\n\n");
 		// iterate through all the tag fields
-		BOOL bFirst = TRUE;
+		//BOOL bFirst = TRUE;
 		CAPETagField * pTagField;
 //		while (pAPETag->GetNextTagField(bFirst, &pTagField))
 		int index = 0;
 		while ((pTagField = pAPETag->GetTagField(index)) != NULL)
 		{
-			bFirst = FALSE;
+			//bFirst = FALSE;
 			index ++;
 			
 			// output the tag field properties (don't output huge fields like images, etc.)
