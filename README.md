@@ -4,9 +4,12 @@ This is a port of [Monkey's Audio Codec][monkeys-audio] to Unix-like systems. It
 
 Monkey's Audio Codec is a lossless compressor for audio files. Files in this format can typically be recognized by the *.ape* extension. Other popular lossless compression formats are Xiph.Org's [FLAC][] and Apple's [ALAC][].
 
+This port is based on Monkey's Audio Codec version 3.99 and integrates patches for [shntool] compatibility. Silly licensing restrictions have hampered the development of a healthy ecosystem around this codec. Using it for anything other than decoding existing files is thus discouraged.
+
 [monkeys-audio]: http://www.monkeysaudio.com/
 [flac]: http://flac.sourceforge.net/
 [alac]: http://alac.macosforge.org/
+[shntool]: http://www.etree.org/shnutils/shntool/
 
 ## Usage
 
