@@ -8,6 +8,7 @@
 #include "GlobalFunctions.h"
 #include "MD5.h"
 #include "CharacterHelper.h"
+#include <algorithm>
 
 #define UNMAC_DECODER_OUTPUT_NONE       0
 #define UNMAC_DECODER_OUTPUT_WAV        1
@@ -204,7 +205,7 @@ int __stdcall VerifyFileW(const str_utf16 * pInputFilename, int * pPercentageDon
             nBytesRead = 1;
             while ((nBytesLeft > 0) && (nBytesRead > 0))
             {
-                int nBytesToRead = min(16384, nBytesLeft);
+                int nBytesToRead = std::min(16384, nBytesLeft);
                 if (pIO->Read(spBuffer, nBytesToRead, &nBytesRead) != ERROR_SUCCESS)
                     throw(ERROR_IO_READ);
 

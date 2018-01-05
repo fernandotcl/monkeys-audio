@@ -4,6 +4,7 @@
 #include "CharacterHelper.h"
 #include "IO.h"
 #include IO_HEADER_FILE
+#include <algorithm>
 
 /*****************************************************************************************
 CAPETagField
@@ -16,7 +17,7 @@ CAPETagField::CAPETagField(const str_utf16 * pFieldName, const void * pFieldValu
     memcpy(m_spFieldNameUTF16, pFieldName, (wcslen(pFieldName) + 1) * sizeof(str_utf16));
     
     // data (we'll always allocate two extra bytes and memset to 0 so we're safely NULL terminated)
-    m_nFieldValueBytes = max(nFieldBytes, 0);
+    m_nFieldValueBytes = std::max(nFieldBytes, 0);
     m_spFieldValue.Assign(new char [m_nFieldValueBytes + 2], TRUE);
     memset(m_spFieldValue, 0, m_nFieldValueBytes + 2);
     if (m_nFieldValueBytes > 0)

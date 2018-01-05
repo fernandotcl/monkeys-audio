@@ -3,6 +3,7 @@
 #include IO_HEADER_FILE
 #include "APECompressCreate.h"
 #include "WAVInputSource.h"
+#include <algorithm>
 
 CAPECompress::CAPECompress()
 {
@@ -117,7 +118,7 @@ int CAPECompress::AddData(unsigned char * pData, int nBytes)
             return ERROR_UNDEFINED;
         
         // calculate how many bytes to copy and add that much to the buffer
-        int nBytesToProcess = min(nBytesAvailable, nBytes - nBytesDone);
+        int nBytesToProcess = std::min(nBytesAvailable, nBytes - nBytesDone);
         memcpy(pBuffer, &pData[nBytesDone], nBytesToProcess);
                         
         // unlock the buffer (fail if not successful)
@@ -154,7 +155,7 @@ int CAPECompress::ProcessBuffer(BOOL bFinalize)
         
         while ((m_nBufferTail - m_nBufferHead) >= nThreshold)
         {
-            int nFrameBytes = min(m_spAPECompressCreate->GetFullFrameBytes(), m_nBufferTail - m_nBufferHead);
+            int nFrameBytes = std::min(m_spAPECompressCreate->GetFullFrameBytes(), m_nBufferTail - m_nBufferHead);
             
             if (nFrameBytes == 0)
                 break;

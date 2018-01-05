@@ -1,5 +1,6 @@
 #include "All.h"
 #include "MACProgressHelper.h"
+#include <algorithm>
 
 CMACProgressHelper::CMACProgressHelper(int nTotalSteps, int * pPercentageDone, APE_PROGRESS_CALLBACK ProgressCallback, int * pKillFlag)
 {
@@ -35,7 +36,7 @@ void CMACProgressHelper::UpdateProgress(int nCurrentStep, BOOL bForceUpdate)
         m_nCurrentStep = nCurrentStep;
 
     // figure the percentage done
-    float fPercentageDone = float(m_nCurrentStep) / float(max(m_nTotalSteps, 1));
+    float fPercentageDone = float(m_nCurrentStep) / float(std::max(m_nTotalSteps, 1));
     int nPercentageDone = (int) (fPercentageDone * 1000 * 100);
     if (nPercentageDone > 100000) nPercentageDone = 100000;
 
