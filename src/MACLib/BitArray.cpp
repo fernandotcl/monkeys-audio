@@ -4,7 +4,6 @@ Includes
 #include "All.h"
 #include "BitArray.h"
 #include "MD5.h"
-#include <algorithm>
 
 /************************************************************************************
 Declares

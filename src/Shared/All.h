@@ -39,6 +39,7 @@ Global includes
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <algorithm>
 #include "SmartPtr.h"
 
 /*****************************************************************************************

@@ -8,7 +8,6 @@
 #include "GlobalFunctions.h"
 #include "MD5.h"
 #include "CharacterHelper.h"
-#include <algorithm>
 
 #define UNMAC_DECODER_OUTPUT_NONE       0
 #define UNMAC_DECODER_OUTPUT_WAV        1

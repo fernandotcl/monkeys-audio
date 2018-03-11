@@ -1,6 +1,5 @@
 #include "All.h"
 #include "CircleBuffer.h"
-#include <algorithm>
 
 CCircleBuffer::CCircleBuffer()
 {

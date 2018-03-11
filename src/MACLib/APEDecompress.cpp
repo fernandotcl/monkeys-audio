@@ -5,7 +5,6 @@
 #include "Prepare.h"
 #include "UnBitArray.h"
 #include "NewPredictor.h"
-#include <algorithm>
 
 #define DECODE_BLOCK_SIZE        4096
 

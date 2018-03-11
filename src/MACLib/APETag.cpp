@@ -4,7 +4,6 @@
 #include "CharacterHelper.h"
 #include "IO.h"
 #include IO_HEADER_FILE
-#include <algorithm>
 
 /*****************************************************************************************
 CAPETagField

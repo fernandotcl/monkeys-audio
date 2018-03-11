@@ -1,6 +1,5 @@
 #include "All.h"
 #include "MACProgressHelper.h"
-#include <algorithm>
 
 CMACProgressHelper::CMACProgressHelper(int nTotalSteps, int * pPercentageDone, APE_PROGRESS_CALLBACK ProgressCallback, int * pKillFlag)
 {

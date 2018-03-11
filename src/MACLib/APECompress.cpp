@@ -3,7 +3,6 @@
 #include IO_HEADER_FILE
 #include "APECompressCreate.h"
 #include "WAVInputSource.h"
-#include <algorithm>
 
 CAPECompress::CAPECompress()
 {
