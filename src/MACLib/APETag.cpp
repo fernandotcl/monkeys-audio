@@ -504,7 +504,8 @@ int CAPETag::LoadField(const char * pBuffer, int nMaximumBytes, int * pBytes)
     
     // safety check (so we can't get buffer overflow attacked)
     int nMaximumRead = nMaximumBytes - 8 - nFieldValueSize;
-    BOOL bSafe = TRUE;
+    // guard against underflow
+    BOOL bSafe = nMaximumRead > 0;
     for (int z = 0; (z < nMaximumRead) && (bSafe == TRUE); z++)
     {
         int nCharacter = pBuffer[nLocation + z];
