@@ -1,4 +1,6 @@
-## Introduction
+# monkeys-audio
+
+[![Build Status](https://travis-ci.com/fernandotcl/monkeys-audio.svg?branch=master)](https://travis-ci.com/fernandotcl/monkeys-audio)
 
 This is a port of [Monkey's Audio Codec][monkeys-audio] to Unix-like systems. It provides a command line utility and a library that can be used by other programs.
 
